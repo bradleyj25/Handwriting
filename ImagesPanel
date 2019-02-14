@@ -1,0 +1,40 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+public class ImagesPanel extends JPanel {
+
+        /**
+         * Creates a panel where the image drawn by the user
+         * and the 10x10 binarized image obtained from it are
+         * shown.
+         */
+        public ImagesPanel() {
+                setPreferredSize(new Dimension(710, 430));
+                setBounds(0, 0, 710, 430);
+        }
+
+        public void paint(Graphics g) {
+                // Paint the image
+                BufferedImage image = Shared.recognitionWin.getImage();
+                int[] rCoords = Shared.recognitionWin.getRectangleCoords();
+                for (int i = 0; i < rCoords.length; i++) rCoords[i] += 50;
+                boolean[][] bits = Shared.recognitionWin.getImageBits();
+                if (image != null)
+                        g.drawImage(image, 50, 50, this);
+
+                // Paint the image container
+                if (rCoords != null) {
+                        g.setColor(Color.RED);
+                        g.drawRect(rCoords[0] - 1, rCoords[1] - 1,
+                                rCoords[2] - rCoords[0] + 2, rCoords[3] - rCoords[1] + 2);      
+                }
+
+                
+           
+}
+}
